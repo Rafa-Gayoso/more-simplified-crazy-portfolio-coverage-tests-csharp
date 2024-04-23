@@ -19,11 +19,12 @@ public class PortfolioWithOnlyLotteryPrediction
         Assert.That(portfolio._messages[0], Is.EqualTo("0"));
     }
 
-    [Test]
-    public void value_grows_by_1_11_days_or_more_after_now()
+    [TestCase("2024/04/15")]
+    [TestCase("2024/01/12")]
+    public void value_grows_by_1_11_days_or_more_after_now(string assetDate)
     {
         var portfolio = APortFolio()
-            .With(AnAsset().DescribedAs("Lottery Prediction").FromDate("2024/04/15").WithValue(100))
+            .With(AnAsset().DescribedAs("Lottery Prediction").FromDate(assetDate).WithValue(100))
             .OnDate("2024/01/01")
             .Build();
 
@@ -32,11 +33,11 @@ public class PortfolioWithOnlyLotteryPrediction
         Assert.That(portfolio._messages[0], Is.EqualTo("101"));
     }
 
-    [Test]
-    public void value_grows_by_2_less_than_11_days_after_now()
+    [TestCase("2024/04/14")]
+    public void value_grows_by_2_less_than_11_days_after_now(string assetDate)
     {
         var portfolio = APortFolio()
-            .With(AnAsset().DescribedAs("Lottery Prediction").FromDate("2024/04/14").WithValue(30))
+            .With(AnAsset().DescribedAs("Lottery Prediction").FromDate(assetDate).WithValue(30))
             .OnDate("2024/04/04")
             .Build();
 
